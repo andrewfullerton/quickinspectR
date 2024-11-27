@@ -1,3 +1,18 @@
+#' @title Inspect normality
+#' @description
+#' Quickly inspect the distribution of your numeric variables.
+#'
+#'
+#' @param data A date frame or tibble with at least one numeric variable.
+#' @param ... Additional ggplot2 parameters to modify plot outputs.
+#'
+#' @return A faceted ggplot2 object with histograms for each numeric variable.
+#' @import dplyr tidyr ggplot2
+#' @export
+#'
+#' @examples
+#' # Basic usage
+#' inspect_normality(iris)
 inspect_normality <- function(data, ...) {
   # Check if input is a data frame or tibble
   if (!is.data.frame(data)) {
@@ -17,8 +32,8 @@ inspect_normality <- function(data, ...) {
 
   # Check if pivot will be successful
   reshaped_data <- data |>
-    select(where(is.numeric)) |>
-    pivot_longer(everything(), names_to = "variable", values_to = "value")
+    dplyr::select(where(is.numeric)) |>
+    tidyr::pivot_longer(everything(), names_to = "variable", values_to = "value")
   if (nrow(reshaped_data) == 0) {
     stop("Pivoting the data resulted in an empty dataset.")
   }
@@ -30,11 +45,11 @@ inspect_normality <- function(data, ...) {
 
   # Plot histograms for each numeric variable
   data |>
-    select(where(is.numeric)) |>
-    pivot_longer(everything(), names_to = "variable", values_to = "value") |>
-    ggplot(aes(x = value)) +
-    geom_histogram(bins = 15, fill = "blue", color = "black", alpha = 0.7, ...) +
-    facet_wrap(~ variable, scales = "free", strip.position = "top") +
-    theme_minimal() +
-    labs(title = "Histograms of Numeric Variables", x = "Value", y = "Frequency")
+    dplyr::select(where(is.numeric)) |>
+    tidyr::pivot_longer(everything(), names_to = "variable", values_to = "value") |>
+    ggplot2::ggplot(aes(x = value)) +
+      ggplot2::geom_histogram(bins = 15, fill = "blue", color = "black", alpha = 0.7, ...) +
+      ggplot2::facet_wrap(~ variable, scales = "free", strip.position = "top") +
+      ggplot2::theme_minimal() +
+      ggplot2::labs(title = "Histograms of Numeric Variables", x = "Value", y = "Frequency")
 }
