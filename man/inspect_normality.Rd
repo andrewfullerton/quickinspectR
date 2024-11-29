@@ -4,10 +4,12 @@
 \alias{inspect_normality}
 \title{Inspect normality}
 \usage{
-inspect_normality(data, ...)
+inspect_normality(data, vars = NULL, ...)
 }
 \arguments{
 \item{data}{A date frame or tibble with at least one numeric variable.}
+
+\item{vars}{A vector of numeric variables contained in data. Default argument of \code{NULL} will produce plots for every numeric variable in the data.}
 
 \item{...}{Additional ggplot2 parameters to modify plot outputs.}
 }
@@ -20,4 +22,8 @@ Quickly inspect the distribution of your numeric variables.
 \examples{
 # Basic usage
 inspect_normality(iris)
+
+# Advanced usage
+# Manually specifies the variables to inspect and modifies plot transparency
+inspect_normality(iris, c("Sepal.Length", "Sepal.Width"), alpha = 0.5)
 }
