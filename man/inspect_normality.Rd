@@ -4,10 +4,14 @@
 \alias{inspect_normality}
 \title{Inspect normality}
 \usage{
-inspect_normality(data, ...)
+inspect_normality(data, vars = NULL, bins = 15, ...)
 }
 \arguments{
 \item{data}{A date frame or tibble with at least one numeric variable.}
+
+\item{vars}{A vector of numeric variables contained in data. Default value \code{NULL} will produce plots for every numeric variable in the data.}
+
+\item{bins}{A number specifying the number of bins to be used in the histogram. Default value is \code{15}.}
 
 \item{...}{Additional ggplot2 parameters to modify plot outputs.}
 }
@@ -17,7 +21,14 @@ A faceted ggplot2 object with histograms for each numeric variable.
 \description{
 Quickly inspect the distribution of your numeric variables.
 }
+\details{
+\code{inspect_normality} uses ggplot2 to produce histograms. Any valid arguments that may be passed to a \code{geom_histogram} layer may also be passed to \code{inspect_mortality} to modify plot outputs.
+}
 \examples{
 # Basic usage
 inspect_normality(iris)
+
+# Advanced usage
+# Manually specifies the variables to inspect and modifies plot output
+inspect_normality(iris, c("Sepal.Length", "Sepal.Width"), bins = 10, fill = "blue", alpha = 0.5)
 }
