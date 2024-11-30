@@ -36,12 +36,13 @@ test_that("basic usage of inspect_normality returns a ggplot object with correct
   expect_s3_class(test_plot, "ggplot")
   expect_s3_class(histogram_layer$geom, "GeomBar")
   expect_equal(num_facets, 4)
+  expect_equal(histogram_layer$stat_params$bins, 15)
 
   # Test ggplot object structure (advanced usage)
-  expect_equal(histogram_layer$stat_params$bins, 15)
+  expect_s3_class(test_plot_manspec, "ggplot")
+  expect_s3_class(histogram_layer_manspec$geom, "GeomBar")
   expect_equal(num_facets_manspec, 2)
   expect_equal(histogram_layer_manspec$stat_params$bins, 10)
-  expect_s3_class(histogram_layer_manspec$geom, "GeomBar")
 })
 
 
