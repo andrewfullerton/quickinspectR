@@ -53,14 +53,6 @@ inspect_normality <- function(data, vars = NULL, ...) {
     stop(paste("The following variables are not numeric:", paste(non_numeric_vars, collapse = ", ")))
   }
 
-  # Check if pivot will be successful
-  reshaped_data <- data |>
-    dplyr::select(dplyr::all_of(vars)) |>
-    tidyr::pivot_longer(tidyr::everything(), names_to = "variable", values_to = "value")
-  if (nrow(reshaped_data) == 0) {
-    stop("Pivoting the data resulted in an empty dataset.")
-  }
-
   # Issue warning if selected variables exceed 20
   if (length(vars) > 20) {
     warning("The dataset has more than 20 selected variables. The plot might be crowded.")
