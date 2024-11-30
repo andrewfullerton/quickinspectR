@@ -4,10 +4,14 @@
 #'
 #'
 #' @param data A date frame or tibble with at least one numeric variable.
-#' @param vars A vector of numeric variables contained in data. Default argument of `NULL` will produce plots for every numeric variable in the data.
+#' @param vars A vector of numeric variables contained in data. Default value `NULL` will produce plots for every numeric variable in the data.
+#' @param bins A number specifying the number of bins to be used in the histogram. Default value `15`.
 #' @param ... Additional ggplot2 parameters to modify plot outputs.
 #'
 #' @return A faceted ggplot2 object with histograms for each numeric variable.
+#' @details
+#' `inspect_normality` uses ggplot2 to produce histograms. Any valid arguments that may be passed to a `geom_histogram` layer may also be passed to `inspect_mortality`to modify plot outputs.
+#'
 #' @import dplyr tidyr ggplot2
 #' @export
 #'
@@ -18,7 +22,7 @@
 #' # Advanced usage
 #' # Manually specifies the variables to inspect and modifies plot transparency
 #' inspect_normality(iris, c("Sepal.Length", "Sepal.Width"), alpha = 0.5)
-inspect_normality <- function(data, vars = NULL, ...) {
+inspect_normality <- function(data, vars = NULL, bins = 15, ...) {
   # Check if input is a data frame or a tibble
   if (!is.data.frame(data)) {
     stop("Input must be a data frame or a tibble.")
@@ -63,7 +67,7 @@ inspect_normality <- function(data, vars = NULL, ...) {
     dplyr::select(all_of(vars)) |>
     tidyr::pivot_longer(everything(), names_to = "variable", values_to = "value") |>
     ggplot2::ggplot(ggplot2::aes(x = value)) +
-    ggplot2::geom_histogram(bins = 15, fill = "blue", color = "black", ...) +
+    ggplot2::geom_histogram(bins = bins, ...) +
     ggplot2::facet_wrap(~ variable, scales = "free", strip.position = "top") +
     ggplot2::theme_minimal() +
     ggplot2::labs(title = "Histograms of Numeric Variables", x = "Value", y = "Frequency")
