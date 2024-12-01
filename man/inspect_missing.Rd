@@ -34,9 +34,13 @@ Quickly inspect the missingness in your data.
 }
 \examples{
 # Basic usage
-inspect_missing(palmerpenguins::penguins)
+inspect_missing(iris)
 
 # Advanced usage
 # Manually specifies the variables to inspect and modifies plot output.
-inspect_missing(palmerpenguins::penguins, na_colour = "transparent", fill_colour = "blue", alpha = 0.5)
+inspect_missing(iris,
+                c("Sepal.Width", "Sepal.Length"),
+                na_colour = "transparent",
+                fill_colour = "blue",
+                alpha = 0.5)
 }

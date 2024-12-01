@@ -17,11 +17,15 @@
 #'
 #' @examples
 #' # Basic usage
-#' inspect_missing(palmerpenguins::penguins)
+#' inspect_missing(iris)
 #'
 #' # Advanced usage
 #' # Manually specifies the variables to inspect and modifies plot output.
-#' inspect_missing(palmerpenguins::penguins, na_colour = "transparent", fill_colour = "blue", alpha = 0.5)
+#' inspect_missing(iris,
+#'                 c("Sepal.Width", "Sepal.Length"),
+#'                 na_colour = "transparent",
+#'                 fill_colour = "blue",
+#'                 alpha = 0.5)
 inspect_missing <- function(data, vars = NULL, na_colour = "red", fill_colour = "darkgrey", ...) {
   # Check if input is a data frame
   if (!is.data.frame(data)) {
