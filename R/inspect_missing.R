@@ -57,7 +57,7 @@ inspect_missing <- function(data, vars = NULL, na_colour = "red", fill_colour = 
     dplyr::mutate(non_missing = nrow(data) - missing)  # Create non-missing count
 
   # Plot missingness
-  missing_values |>
+  plot_missing <- missing_values |>
     tidyr::pivot_longer(cols = c(missing, non_missing),
                  names_to = "status", values_to = "count") |>
     ggplot2::ggplot(aes(variable, count, fill = status)) +
@@ -70,5 +70,7 @@ inspect_missing <- function(data, vars = NULL, na_colour = "red", fill_colour = 
       x = "Variables",
       y = "Proportion of observations"
     )
+
+  return(plot_missing)
 }
 
