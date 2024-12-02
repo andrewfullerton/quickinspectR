@@ -15,11 +15,13 @@ beginner R programmers to graphically inspect their data. The package is
 centered around an expanding collection of simple `inspect_...`
 functions that help users visualize their data.
 
-Currently, this package supports: \* `inspect_normality`: graphically
-inspect the distribution of numeric variables in your data. \*
-`inspect_balance`: graphically inspect the class balance (or lack
-thereof) in your data. \* `inspect_missing`: graphically inspect
-missingness in your data.
+Currently, this package supports:
+
+- `inspect_normality`: graphically inspect the distribution of numeric
+  variables in your data.
+- `inspect_balance`: graphically inspect the class balance (or lack
+  thereof) in your data.
+- `inspect_missing`: graphically inspect missingness in your data.
 
 ## Installation
 
