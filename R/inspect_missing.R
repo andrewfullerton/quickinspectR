@@ -50,10 +50,11 @@ inspect_missing <- function(data, vars = NULL, na_colour = "red", fill_colour = 
     stop(paste("The following variables do not exist in the dataset:", paste(invalid_vars, collapse = ", ")))
   }
 
+
   # Calculate missing values count for each variable
   missing_values <- data |>
     dplyr::summarise(dplyr::across(dplyr::all_of(selected_vars), ~sum(is.na(.)))) |>
-    tidyr::pivot_longer(everything(), names_to = "variable", values_to = "missing") |>
+    tidyr::pivot_longer(dplyr::everything(), names_to = "variable", values_to = "missing") |>
     dplyr::mutate(non_missing = nrow(data) - missing)  # Create non-missing count
 
   # Plot missingness
@@ -61,7 +62,7 @@ inspect_missing <- function(data, vars = NULL, na_colour = "red", fill_colour = 
     tidyr::pivot_longer(cols = c(missing, non_missing),
                  names_to = "status", values_to = "count") |>
     ggplot2::ggplot(aes(variable, count, fill = status)) +
-    ggplot2::geom_bar(colour = "black", stat = "identity", position = "fill", ...) +
+    ggplot2::geom_bar(stat = "identity", position = "fill", ...) +
     ggplot2::theme_minimal() +
     ggplot2::theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     ggplot2::scale_fill_manual(values = c(na_colour, fill_colour)) +
