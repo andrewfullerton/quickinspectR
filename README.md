@@ -12,8 +12,8 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 
 The goal of **quickinspectR** is to make it easier (and quicker) for
 beginner R programmers to graphically inspect their data. The package is
-centered around an expanding collection of simple `inspect_...`
-functions that help users visualize their data.
+centered around an expanding collection of simple `inspect` functions
+that help users visualize their data.
 
 Currently, this package supports:
 
@@ -23,9 +23,14 @@ Currently, this package supports:
   thereof) in your data.
 - `inspect_missing`: graphically inspect missingness in your data.
 
+By design, all **quickinspectR** functions require only one argument: a
+data frame or a tibble (`data`). Unless otherwise specified, functions
+will display all the relevant variables contained in the data frame and
+default to easy-to-read plot styling.
+
 ## Installation
 
-You can install the development version of quickinspectR from
+You can install the development version of **quickinspectR** from
 [GitHub](https://github.com/andrewfullerton/quickinspectR) with:
 
 ``` r
@@ -33,48 +38,60 @@ You can install the development version of quickinspectR from
 devtools::install_github("andrewfullerton/quickinspectR")
 ```
 
-## Example
+## Examples
 
-By design, all `inspect_...` functions require only one argument: a data
-frame or a tibble (`data`). Unless otherwise specified, `quickinspectR`
-functions will display all the relevant variables contained in the data
-frame and default to easy-to-read plot styling. Here’s an example using
-`inspect_normality`:
+If you want to see how the numeric variables in your data are
+distributed (e.g. check if they are skewed), you can use
+`inspect_normality`.
 
 ``` r
 library(quickinspectR)
 
-inspect_normality(iris)
+inspect_normality(data = iris)
 ```
 
 <img src="man/figures/README-example1-1.png" width="100%" />
 
-If you want to specify the variables you wish to visualize, you can pass
-a string of variables into an `inspect_...` function using the `vars`
-argument. Here’s an example using `inspect_balance`:
+If you want to check for class imbalance (e.g. unequal distribution of
+classes within categorical variables), you can use `inspect_balance`.
+**Tip:** if you’re only interested in a few key variables in your data,
+then you can use the `vars` argument to manually specify which variables
+will be displayed.
 
 ``` r
-inspect_balance(palmerpenguins::penguins, c("species", "island"))
+inspect_balance(data = palmerpenguins::penguins, vars = c("species", "island"))
 ```
 
 <img src="man/figures/README-example2-1.png" width="100%" />
 
-To make plot customization easier when dealing with more complicated
-**ggplot2** objects, some `inspect_...` functions contain additional
-(optional) arguments. Here’s an example using the `fill_colour` argument
-in `inspect_missing` to make the plot output a bit more festive:
+If you want to quickly see if you’re missing any data (and more
+importantly: where you’re missing data), then you can use
+`inspect_missing`.
 
 ``` r
-inspect_missing(data = palmerpenguins::penguins, 
-                vars = c("species", "sex", "island"),
-                fill_colour = "darkgreen")
+inspect_missing(data = palmerpenguins::penguins)
 ```
 
 <img src="man/figures/README-example3-1.png" width="100%" />
 
-And since all **quickinspectR** functions are built on top of ggplot2,
-you can further customize your plot outputs by passing in additional
+Even though all `inspect` functions will run with `data` as their sole
+argument, there may be times when you want to stylize your plots a bit
+more. To make this more accessible, each `inspect` functions contain
+several additional (but completely optional) arguments to enable basic
+plot customization. Here’s an example using `inspect_missing`:
+
+``` r
+inspect_missing(data = palmerpenguins::penguins,
+                na_colour = "purple", # Changes colour used to represent missing values
+                fill_colour = "darkgreen") # Changes colour used to represent non-missing values
+```
+
+<img src="man/figures/README-example4-1.png" width="100%" />
+
+And while advanced plot customization is *not* the goal of
+**quickinspectR**, all `quickinspectR` functions are built on top of
+ggplot2 and support more advanced customization via additional
 ggplot2-supported arguments. To learn more about this, you can read our
 vignette.
 
-## Thanks for checking out **quickinspectR**!
+## Thanks for checking out quickinspectR!
