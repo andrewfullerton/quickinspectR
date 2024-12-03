@@ -40,13 +40,17 @@ data frame or a tibble (`data`). Unless otherwise specified, functions
 will display all the relevant variables contained in the data frame and
 default to easy-to-read plot styling.
 
+To get started, load the package.
+
+``` r
+library(quickinspectR)
+```
+
 If you want to see how the numeric variables in your data are
 distributed (e.g. check if they are skewed), you can use
 `inspect_normality`.
 
 ``` r
-library(quickinspectR)
-
 inspect_normality(data = iris)
 ```
 
@@ -76,20 +80,21 @@ inspect_missing(data = palmerpenguins::penguins)
 
 Even though all `inspect` functions will run with `data` as their sole
 argument, there may be times when you want to stylize your plots a bit
-more. To make this more accessible, each `inspect` functions contain
+more. To make this more accessible, each `inspect` function contains
 several additional (but completely optional) arguments to enable basic
 plot customization. Here’s an example using `inspect_missing`:
 
 ``` r
 inspect_missing(data = palmerpenguins::penguins,
                 na_colour = "purple", # Changes colour used to represent missing values
-                fill_colour = "darkgreen") # Changes colour used to represent non-missing values
+                fill_colour = "darkgreen",
+                title = "Missing values in penguins dataset") # Changes colour used to represent non-missing values
 ```
 
 <img src="man/figures/README-example4-1.png" width="100%" />
 
 And while advanced plot customization is not the goal of
-**quickinspectR**, all its functions are built on top of ggplot2 and
+**quickinspectR**, all its functions are built on top of **ggplot2** and
 support more advanced customization via additional arguments. To learn
 more about this, you can read this vignette.
 
