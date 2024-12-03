@@ -1,6 +1,6 @@
 Package: quickinspectR
 Title: Quickly Inspect Your Data
-Version: 0.3.4
+Version: 0.3.5
 Authors@R: 
     person("Andrew", "Fullerton", , "afullert@student.ubc.ca", role = c("aut", "cre"))
 Description: Visually inspect your dataset for normality, class imbalance, or missingness with one swift line of code.
