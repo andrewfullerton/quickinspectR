@@ -8,7 +8,8 @@ inspect_missing(
   data,
   vars = NULL,
   na_colour = "red",
-  fill_colour = "darkgrey",
+  fill_colour = "grey30",
+  title = NULL,
   ...
 )
 }
@@ -19,7 +20,9 @@ inspect_missing(
 
 \item{na_colour}{An R-supported colour or hex value to indicate missing values. Default value is "red".}
 
-\item{fill_colour}{An R-supported colour or hex value to indicate non-missing values. Default value is "darkgrey".}
+\item{fill_colour}{An R-supported colour or hex value to indicate non-missing values. Default value is "grey30".}
+
+\item{title}{A string. Default value \code{NULL} is no title.}
 
 \item{...}{Additional ggplot2 parameters to modify plot outputs.}
 }
@@ -27,10 +30,10 @@ inspect_missing(
 A ggplot2 object.
 }
 \description{
-Quickly inspect the missingness in your data.
+Quickly inspect the missingness in a dataset.
 }
 \details{
-\code{inspect_missing} uses ggplot2 to produce a bar plot. Any valid arguments that may be passed to a \code{geom_bar} layer may also be passed to \code{inspect_missing} to modify plot outputs.
+\code{inspect_missing} uses ggplot2 to produce a bar plot. Any valid arguments that may be passed to a \code{geom_bar} layer may also be passed to \code{inspect_missing} via \code{...} to modify plot outputs.
 }
 \examples{
 # Basic usage
@@ -38,9 +41,9 @@ inspect_missing(iris)
 
 # Advanced usage
 # Manually specifies the variables to inspect and modifies plot output.
-inspect_missing(iris,
-                c("Sepal.Width", "Sepal.Length"),
-                na_colour = "transparent",
+inspect_missing(data = iris,
+                vars = c("Sepal.Width", "Sepal.Length"),
+                na_colour = "green",
                 fill_colour = "blue",
                 alpha = 0.5)
 }
