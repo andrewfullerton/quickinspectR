@@ -23,11 +23,6 @@ Currently, this package supports:
   thereof) in your data.
 - `inspect_missing`: graphically inspect missingness in your data.
 
-By design, all **quickinspectR** functions require only one argument: a
-data frame or a tibble (`data`). Unless otherwise specified, functions
-will display all the relevant variables contained in the data frame and
-default to easy-to-read plot styling.
-
 ## Installation
 
 You can install the development version of **quickinspectR** from
@@ -39,6 +34,11 @@ devtools::install_github("andrewfullerton/quickinspectR")
 ```
 
 ## Examples
+
+By design, all **quickinspectR** functions require only one argument: a
+data frame or a tibble (`data`). Unless otherwise specified, functions
+will display all the relevant variables contained in the data frame and
+default to easy-to-read plot styling.
 
 If you want to see how the numeric variables in your data are
 distributed (e.g. check if they are skewed), you can use
@@ -88,10 +88,9 @@ inspect_missing(data = palmerpenguins::penguins,
 
 <img src="man/figures/README-example4-1.png" width="100%" />
 
-And while advanced plot customization is *not* the goal of
-**quickinspectR**, all `quickinspectR` functions are built on top of
-ggplot2 and support more advanced customization via additional
-ggplot2-supported arguments. To learn more about this, you can read our
-vignette.
+And while advanced plot customization is not the goal of
+**quickinspectR**, all its functions are built on top of ggplot2 and
+support more advanced customization via additional arguments. To learn
+more about this, you can read this vignette.
 
 ## Thanks for checking out quickinspectR!
