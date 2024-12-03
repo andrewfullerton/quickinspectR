@@ -4,12 +4,16 @@
 \alias{inspect_balance}
 \title{Inspect class imbalance}
 \usage{
-inspect_balance(data, vars = NULL, ...)
+inspect_balance(data, vars = NULL, fill_colour = "grey30", title = NULL, ...)
 }
 \arguments{
 \item{data}{A date frame or tibble with at least one categorical variable.}
 
 \item{vars}{A vector of categorical variables contained in data. Default value \code{NULL} will produce plots for every categorical variable in the data.}
+
+\item{fill_colour}{An R-supported colour or hex code to assign as the barplot colour. Default value is "grey30"}
+
+\item{title}{A string. Default value \code{NULL} is no title.}
 
 \item{...}{Additional ggplot2 parameters to modify plot outputs.}
 }
@@ -28,5 +32,8 @@ inspect_balance(iris)
 
 # Advanced usage
 # Manually specifies the variable to inspect and modifies plot output
-inspect_balance(iris, c("Species"), alpha = 0.5)
+inspect_balance(data = iris,
+                c("Species"),
+                fill_colour = "blue",
+                title = "Class balance of Species")
 }
