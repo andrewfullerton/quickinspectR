@@ -80,8 +80,8 @@ inspect_missing <- function(data,
   # Plot missingness
   plot_missing <- missing_values |>
     tidyr::pivot_longer(cols = c(missing, non_missing),
-                 names_to = "status", values_to = "count") |>
-    ggplot2::ggplot(aes(variable, count, fill = status)) +
+                 names_to = "status", values_to = "proportion") |>
+    ggplot2::ggplot(aes(variable, proportion, fill = status)) +
     ggplot2::geom_bar(stat = "identity", position = "fill", ...) +
     ggplot2::theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     ggplot2::scale_fill_manual(values = c(na_colour, fill_colour)) +
