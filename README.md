@@ -61,31 +61,20 @@ inspect_balance(palmerpenguins::penguins, c("species", "island"))
 
 To make plot customization easier when dealing with more complicated
 **ggplot2** objects, some `inspect_...` functions contain additional
-(optional) arguments. Here’s an example leveraging the `na_colour` and
-`fill_colour` arguments in `inspect_missing` to customize the plot
-outputs.
+(optional) arguments. Here’s an example using the `fill_colour` argument
+in `inspect_missing` to make the plot output a bit more festive:
 
 ``` r
 inspect_missing(data = palmerpenguins::penguins, 
                 vars = c("species", "sex", "island"),
-                na_colour = "purple", 
-                fill_colour = "yellow")
+                fill_colour = "darkgreen")
 ```
 
 <img src="man/figures/README-example3-1.png" width="100%" />
 
 And since all **quickinspectR** functions are built on top of ggplot2,
 you can further customize your plot outputs by passing in additional
-ggplot2-supported arguments. Here’s an example modifying the fill colour
-transparency by passing `alpha = 0.5` into the `geom_bar` layer under
-the hood.
-
-``` r
-inspect_missing(palmerpenguins::penguins, 
-                c("species", "sex", "island"),
-                alpha = 0.5)
-```
-
-<img src="man/figures/README-example4-1.png" width="100%" />
+ggplot2-supported arguments. To learn more about this, you can read our
+vignette.
 
 ## Thanks for checking out **quickinspectR**!
