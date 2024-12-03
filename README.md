@@ -86,9 +86,9 @@ plot customization. Here’s an example using `inspect_missing`:
 
 ``` r
 inspect_missing(data = palmerpenguins::penguins,
-                na_colour = "purple", # Changes colour used to represent missing values
-                fill_colour = "darkgreen",
-                title = "Missing values in penguins dataset") # Changes colour used to represent non-missing values
+                na_colour = "purple", # Change colour used to represent missing values
+                fill_colour = "darkgreen", # Change colour used to represent non-missing values
+                title = "Missing values in penguins dataset") # Add title
 ```
 
 <img src="man/figures/README-example4-1.png" width="100%" />

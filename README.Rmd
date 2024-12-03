@@ -70,9 +70,9 @@ Even though all `inspect` functions will run with `data` as their sole argument,
 
 ```{r example4}
 inspect_missing(data = palmerpenguins::penguins,
-                na_colour = "purple", # Changes colour used to represent missing values
-                fill_colour = "darkgreen",
-                title = "Missing values in penguins dataset") # Changes colour used to represent non-missing values
+                na_colour = "purple", # Change colour used to represent missing values
+                fill_colour = "darkgreen", # Change colour used to represent non-missing values
+                title = "Missing values in penguins dataset") # Add title
 ```
 
 And while advanced plot customization is not the goal of **quickinspectR**, all its functions are built on top of **ggplot2** and support more advanced customization via additional arguments. To learn more about this, you can read this vignette. 
