@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-The goal of *quickinspectR* is to make it easier (and quicker) for beginner R programmers to graphically inspect their data. The package is centered around an expanding collection of simple `inspect_...` functions that help users visualize their data.
+The goal of **quickinspectR** is to make it easier (and quicker) for beginner R programmers to graphically inspect their data. The package is centered around an expanding collection of simple `inspect_...` functions that help users visualize their data.
 
 Currently, this package supports:
 
@@ -54,7 +54,7 @@ If you want to specify the variables you wish to visualize, you can pass a strin
 inspect_balance(palmerpenguins::penguins, c("species", "island"))
 ```
 
-To make plot customization easier when dealing with more complicated *ggplot2* objects, some `inspect_...` functions contain additional (optional) arguments. Here's an example leveraging the `na_colour` and `fill_colour` arguments in `inspect_missing` to customize the plot outputs.
+To make plot customization easier when dealing with more complicated **ggplot2** objects, some `inspect_...` functions contain additional (optional) arguments. Here's an example leveraging the `na_colour` and `fill_colour` arguments in `inspect_missing` to customize the plot outputs.
 
 ```{r example3}
 inspect_missing(data = palmerpenguins::penguins, 
@@ -63,7 +63,7 @@ inspect_missing(data = palmerpenguins::penguins,
                 fill_colour = "yellow")
 ```
 
-And since all *quickinspectR* functions are built on top of ggplot2, you can further customize your plot outputs by passing in additional *ggplot2*-supported arguments. Here's an example modifying the fill colour transparency by passing `alpha = 0.3` into the `geom_bar` layer under the hood.
+And since all **quickinspectR** functions are built on top of ggplot2, you can further customize your plot outputs by passing in additional ggplot2-supported arguments. Here's an example modifying the fill colour transparency by passing `alpha = 0.5` into the `geom_bar` layer under the hood.
 
 ```{r example4}
 inspect_missing(palmerpenguins::penguins, 
@@ -71,4 +71,4 @@ inspect_missing(palmerpenguins::penguins,
                 alpha = 0.5)
 ```
 
-## Thanks for checking out *quickinspectR*!
+## Thanks for checking out **quickinspectR**!

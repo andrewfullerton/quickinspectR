@@ -10,7 +10,7 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 
 <!-- badges: end -->
 
-The goal of *quickinspectR* is to make it easier (and quicker) for
+The goal of **quickinspectR** is to make it easier (and quicker) for
 beginner R programmers to graphically inspect their data. The package is
 centered around an expanding collection of simple `inspect_...`
 functions that help users visualize their data.
@@ -60,7 +60,7 @@ inspect_balance(palmerpenguins::penguins, c("species", "island"))
 <img src="man/figures/README-example2-1.png" width="100%" />
 
 To make plot customization easier when dealing with more complicated
-*ggplot2* objects, some `inspect_...` functions contain additional
+**ggplot2** objects, some `inspect_...` functions contain additional
 (optional) arguments. Here’s an example leveraging the `na_colour` and
 `fill_colour` arguments in `inspect_missing` to customize the plot
 outputs.
@@ -74,11 +74,11 @@ inspect_missing(data = palmerpenguins::penguins,
 
 <img src="man/figures/README-example3-1.png" width="100%" />
 
-And since all *quickinspectR* functions are built on top of ggplot2, you
-can further customize your plot outputs by passing in additional
-*ggplot2*-supported arguments. Here’s an example modifying the fill
-colour transparency by passing `alpha = 0.3` into the `geom_bar` layer
-under the hood.
+And since all **quickinspectR** functions are built on top of ggplot2,
+you can further customize your plot outputs by passing in additional
+ggplot2-supported arguments. Here’s an example modifying the fill colour
+transparency by passing `alpha = 0.5` into the `geom_bar` layer under
+the hood.
 
 ``` r
 inspect_missing(palmerpenguins::penguins, 
@@ -88,4 +88,4 @@ inspect_missing(palmerpenguins::penguins,
 
 <img src="man/figures/README-example4-1.png" width="100%" />
 
-## Thanks for checking out *quickinspectR*!
+## Thanks for checking out **quickinspectR**!
