@@ -70,7 +70,7 @@ inspect_normality <- function(data, vars = NULL, bins = 15, ...) {
     ggplot2::geom_histogram(bins = bins, ...) +
     ggplot2::facet_wrap(~ variable, scales = "free", strip.position = "top") +
     ggplot2::theme_minimal() +
-    ggplot2::labs(title = "Histograms of Numeric Variables", x = "Value", y = "Frequency")
+    ggplot2::labs(title = "Distribution of Numeric Variables", x = "Value", y = "Frequency")
 
   return(plot_normality)
 }
