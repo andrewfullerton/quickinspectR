@@ -1,0 +1,156 @@
+---
+title: "using-quickinspectR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{using-quickinspectR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Welcome to quickinspectR
+
+**quickinspectR** is a package designed for beginner R programmers that makes graphically inspecting your data faster and easier. The most recent version of **quickinspectR** contains three functions:
+
+- `inspect_normality`
+- `inspect_balance`
+- `inspect_missing`
+
+To demonstrate how **quickinspectR** works, showcase both basic and advanced usage, and justify why this package even exists in the first place, we're going to run through an example of trying to do some exploratory data analysis (EDA) using the `penguins` dataset from the `palmerpenguins` package. 
+
+## Getting started
+
+To get started, we first need to install and load the package into our R session. To do this, we need the `devtools` package which can be installed using the commented out code below.
+
+```{r setup}
+# install.packages("devtools")
+# devtools::install_github("andrewfullerton/quickinspectR")
+library(quickinspectR)
+```
+
+We also need to load `palmerpenguins` in order to access our data and, of course, the `tidyverse` package to make data wrangling easier. Let's do that too!
+
+```{r}
+# install.packages("palmerpenguins")
+library(palmerpenguins)
+
+# install.packages("tidyverse")
+library(tidyverse)
+```
+
+Great! Now that we're set up, we can start poking around in the data.
+
+## Basic usage
+
+Right off the bat, I just want to familiarize myself with my dataset. 
+
+```{r}
+data <- penguins
+
+head(data)
+```
+
+
+Let's say I'm interested in exploring the relationship between body mass, bill length, and flipper length. One of the first things I likely want to know before I start trying to do any intensive analysis is "are these variably normally distributed?" - the answer to this question will dictate both what types of analysis I can do and how I will approach my analysis. 
+
+I can fumble around with `dplyr`, `tidyr`, and `ggplot2` for an hour trying to build the plot I need from the ground-up, or I can `inspect_normality` and get to the fun stuff sooner. 
+
+```{r}
+inspect_normality(data,
+                  vars = c("bill_length_mm", "flipper_length_mm", "body_mass_g"))
+```
+
+In a single line of code, I have a pretty good sense of how these three variables are distributed. All three seem fairly normally distributed albeit with a slight right-skew. 
+
+Hmm ... now this has me thinking that there might be some connection between the `species` of a penguin, the `island` it comes from, and its physical attributes. How many different species/island am I dealing with in this dataset? Do I want to use every species/island in my analysis, or do I want to drop some of the underrepresented ones? 
+
+I can `inspect_balance` to figure this out. 
+
+```{r}
+inspect_balance(data)
+```
+
+With a single line of code, I can see that we have a pretty even split between male and female penguins in our dataset, but there's much less balance between the different species of penguins and the islands they come from.
+
+This makes me wonder if I might be missing some data ... thankfully, I can `inspect_missing` to figure this out.
+
+```{r}
+inspect_missing(data)
+```
+
+Good to know! Now that I have my bearings, I can move on to more advance analysis. Using **quickinspectR** I was able to accomplish a few routine inspections in just three easy lines of code. 
+
+## Intermediate usage
+
+While data visualization is really just a tool to help an analyst get their head wrapped around their data or present their analysis, sometimes it's nice to make your plots your own and add a little spice to your visualizations. All of the `inspect` functions in **quickinspectR** contain several additional (but optional) arguments to make plot customization more accessible for the beginner (or the experienced programmer who's in a rush). 
+
+- `vars` allows you to easily select the variables you want to visualize.
+- `fill_colour` lets you pick your colour of choice.
+- `title`, well, lets you add a descriptive title to your plot.
+
+```{r}
+inspect_normality(data,
+                  vars = c("bill_length_mm", "flipper_length_mm", "body_mass_g"),
+                  fill_colour = "blue",
+                  title = "Penguin Attributes")
+```
+
+Nothing like a nice royal blue plot to help you get oriented to your dataset! While some `inspect` functions contain additional arguments (for example: the `bins` argument in `inspect_normality`), all share these same straightforward customization options.
+
+## Advanced usage
+
+While **quickinspectR** is intended as a package to help novice R programmers get their analyses off the ground more efficiently rather than build deeply customized plots, there are plenty of opportunities to extend **quickinspectR** for your personal use case. 
+
+### Using `...` to extend `inspect` functions
+
+Under the hood, **quickinspectR** is generating **ggplot2** objects. Using the `...` argument, you can pass any supported ggplot2 argument directly into the plot's "main" `geom_` layer. When using `inspect_normality`, your arguments will be passed right into the `geom_histogram` layer. When using `inspect_balance` and `inspect_missing`, your arguments will land in the `geom_bar` layer.
+
+```{r}
+inspect_normality(data,
+                  vars = c("bill_length_mm", "flipper_length_mm", "body_mass_g"),
+                  fill_colour = "navyblue",
+                  title = "Penguin Attributes",
+                  colour = "lightblue",
+                  alpha = 0.7)
+```
+
+### Adding additional layers
+
+While passing additional arguments into a pre-specified `geom` layer is great, it's not without limitations. There may be a case, for example, where you want to use `inspect` to do the heavy lifting but add some additional `geom` layers to really dress your plot up. Since `inspect` functions return a standard ggplot2 object, you can easily add themes, layers, and more using standard `ggplot2` syntax. 
+
+```{r}
+inspect_normality(data,
+                  vars = c("bill_length_mm", "flipper_length_mm", "body_mass_g"),
+                  fill_colour = "navyblue",
+                  title = "Penguin Attributes",
+                  colour = "lightblue",
+                  alpha = 0.7) + 
+  theme_dark()
+```
+
+```{r}
+inspect_normality(data,
+                  vars = c("bill_length_mm", "flipper_length_mm", "body_mass_g"),
+                  fill_colour = "navyblue",
+                  title = "Penguin Attributes",
+                  colour = "lightblue",
+                  alpha = 0.7) +
+  theme_dark() + 
+  labs(x = "Physical attributes",
+       y = "Count") +
+  geom_rug(aes(x = value), color = "red", alpha = 0.5)
+
+```
+
+
+
+
+
+
+
