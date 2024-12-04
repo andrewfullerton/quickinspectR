@@ -21,11 +21,11 @@ test_that("inspect_balance handles inputs as intended", {
   # Test colour and title errors and warnings
   expect_error(
     inspect_balance(iris, fill_colour = "invalid_color"),
-    "Invalid color: invalid_color\\. Please provide a valid colour name or hex code\\."
+    "Invalid colour: invalid_color\\. Please provide a valid colour name or hex code\\."
   )
   expect_error(
     inspect_balance(iris, fill_colour = "#GGGGGG"),
-    "Invalid color: #GGGGGG\\. Please provide a valid colour name or hex code\\."
+    "Invalid colour: #GGGGGG\\. Please provide a valid colour name or hex code\\."
   )
   expect_error(
     inspect_balance(iris, title = 123),
@@ -37,7 +37,7 @@ test_that("inspect_balance handles inputs as intended", {
   )
   expect_error(
     inspect_balance(iris, title = c("Title1", "Title2")),
-    "Invalid title: Title1Title2\\. Please provide a non-empty character string\\."
+    "Invalid title: Title1\\. Please provide a non-empty character string\\."
   )
 })
 

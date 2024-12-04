@@ -2,18 +2,17 @@
 #' @description
 #' Quickly inspect the distribution of your categorical variables.
 #'
+#' @param data A non-empty data frame or tibble containing at least one categorical variable.
+#' @param vars A character vector of categorical variable names contained in `data`. Default value `NULL` will produce plots for every categorical variable in the dataset.
+#' @param fill_colour An R-supported colour or hex value used to fill the bars of the bar plot. Default value is "grey30".
+#' @param title A non-empty string for the plot title. Default value `NULL` results in no title being displayed.
+#' @param ... Additional arguments passed to `geom_bar` and `ggplot2` layers for customizing the plot output.
 #'
-#' @param data A date frame or tibble with at least one categorical variable.
-#' @param vars A vector of categorical variables contained in data. Default value `NULL` will produce plots for every categorical variable in the data.
-#' @param fill_colour An R-supported colour or hex code to assign as the barplot colour. Default value is "grey30"
-#' @param title A string. Default value `NULL` is no title.
-#' @param ... Additional ggplot2 parameters to modify plot outputs.
-#'
-#' @return A ggplot2 object with bar plots for each categorical variable.
+#' @return A ggplot2 object with bar plot(s) for each specified categorical variable.
 #' @details
-#' `inspect_balance` uses ggplot2 to produce bar plots. Any valid arguments that may be passed to a `geom_bar` layer may also be passed to `inspect_balance` to modify plot outputs.
+#' `inspect_balance` uses `ggplot2` to produce bar plots visualizing the distribution of categorical variables. Any valid arguments that can be passed to a `geom_bar` layer in ggplot2 may also be passed to `inspect_balance` to modify plot outputs.
 #'
-#' @import dplyr tidyr ggplot2
+#' @import dplyr tidyr ggplot2 stringr rlang glue
 #' @export
 #'
 #' @examples
@@ -21,9 +20,9 @@
 #' inspect_balance(iris)
 #'
 #' # Advanced usage
-#' # Manually specifies the variable to inspect and modifies plot output
+#' # Specify the variable to inspect and modify the plot appearance
 #' inspect_balance(data = iris,
-#'                 c("Species"),
+#'                 vars = c("Species"),
 #'                 fill_colour = "blue",
 #'                 title = "Class balance of Species")
 inspect_balance <- function(data,
@@ -33,18 +32,18 @@ inspect_balance <- function(data,
                             ...) {
   # Check if input is a data frame
   if (!is.data.frame(data)) {
-    stop("Input is not a data frame or a tibble.")
+    rlang::abort("Input is not a data frame or a tibble.")
   }
 
   # Check if the dataset is empty
   if (nrow(data) == 0) {
-    stop("The dataset is empty. No plots will be generated.")
+    rlang::abort("The dataset is empty. No plots will be generated.")
   }
 
   # Check if there are any categorical columns in the data
   categorical_data <- data |> dplyr::select(dplyr::where(~ is.factor(.) || is.character(.)))
   if (ncol(categorical_data) == 0) {
-    stop("No categorical columns found in the data. Try using inspect_normality instead.")
+    rlang::abort("No categorical columns found in the data. Try using inspect_normality instead.")
   }
 
   # If no variables are specified, select categorical columns by default
@@ -54,30 +53,30 @@ inspect_balance <- function(data,
 
   # Check if the specified variables exist in the data
   if (!all(vars %in% names(data))) {
-    stop("Some of the specified variables do not exist in the dataset.")
+    rlang::abort("Some of the specified variables do not exist in the dataset.")
   }
 
   # Check if the specified variables exist in the categorical data
   non_categorical_vars <- vars[!vars %in% names(categorical_data)]
   if (length(non_categorical_vars) > 0) {
-    stop("The following variables are not categorical: ", paste(non_categorical_vars, collapse = ", "))
+    rlang::abort(glue::glue("The following variables are not categorical: {paste(non_categorical_vars, collapse = ', ')}"))
   }
 
   # Check if fill colour input is valid
-  valid_colors <- grDevices::colors()
-  is_hex_color <- grepl("^#(?:[0-9a-fA-F]{3}){1,2}$", fill_colour)
-  if (!(fill_colour %in% valid_colors || is_hex_color)) {
-    stop("Invalid color: ", fill_colour, ". Please provide a valid colour name or hex code.")
+  valid_colours <- grDevices::colors()
+  is_hex_colour <- stringr::str_detect("^#(?:[0-9a-fA-F]{3}){1,2}$", fill_colour)
+  if (!(fill_colour %in% valid_colours || is_hex_colour)) {
+    rlang::abort(glue::glue("Invalid colour: {fill_colour}. Please provide a valid colour name or hex code."))
   }
 
   # Check if title provided is valid
   if (!is.null(title) && (!is.character(title) || length(title) != 1 || title == "")) {
-    stop("Invalid title: ", title, ". Please provide a non-empty character string.")
+    rlang::abort(glue::glue("Invalid title: {title}. Please provide a non-empty character string."))
   }
 
   # Issue warning if selected variables exceed 20
   if (length(vars) > 20) {
-    warning("The dataset has more than 20 selected variables. The plot might be crowded.")
+    rlang::warn("The dataset has more than 20 selected variables. The plot might be crowded.")
   }
 
   # Plot class balance for each categorical variable

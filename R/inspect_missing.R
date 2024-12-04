@@ -13,6 +13,7 @@
 #' @details
 #' `inspect_missing` uses `ggplot2` to produce a bar plot representing the proportion of missing and non-missing values for each column in the dataset. Any valid arguments that may be passed to a `geom_bar` layer in `ggplot2` may also be passed to `inspect_missing` via `...` to customize the plot appearance.
 #'
+#' @import dplyr tidyr ggplot2 stringr rlang glue
 #' @export
 #'
 #' @examples
@@ -56,10 +57,10 @@ inspect_missing <- function(data,
 
   # Check if fill colour input is valid
   colour_validate <- function(colour) {
-    valid_colors <- grDevices::colors()
-    is_hex_color <- stringr::str_detect("^#(?:[0-9a-fA-F]{3}){1,2}$", colour)
+    valid_colours <- grDevices::colors()
+    is_hex_colour <- stringr::str_detect("^#(?:[0-9a-fA-F]{3}){1,2}$", colour)
 
-    if (!(colour %in% valid_colors || is_hex_color)) {
+    if (!(colour %in% valid_colours || is_hex_colour)) {
       rlang::abort(glue::glue("Invalid colour: {colour}. Please provide a valid colour name or hex code."))
     }
   }
