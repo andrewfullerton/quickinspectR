@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">quickinspectR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,18 +67,18 @@
 <p><strong>quickinspectR</strong> is a package designed for beginner R
 programmers that makes graphically inspecting your data faster and
 easier. In this article, we’ll go through basic usage, intermediate
-usage, and advance usage of <strong>quickinspectR</strong> using a
-tried-and-true dataset among R programmers:
-<code><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">palmerpenguins::penguins</a></code>.</p>
+usage, and advanced usage of <strong>quickinspectR</strong> using a
+tried-and-true dataset among R programmers: <code>penguins</code> from
+the <code>palmerpenguins</code> package.</p>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>To get started, we first need load the
-<strong>quicksinspectR</strong> package into our session. If you don’t
-already have it installed, you can use the commented out code below to
-install the <code>devtools</code> package - this lets us install the
-development version of <strong>quickinspectR</strong> straight from
-GitHub.</p>
+<p>To get started, we first need to load the
+<strong>quicksinspectR</strong> package into our session.</p>
+<p>If you don’t already have it installed, you can use the commented out
+code below to install the <code>devtools</code> package - this lets us
+install the development version of <strong>quickinspectR</strong>
+straight from GitHub.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="co"># devtools::install_github("andrewfullerton/quickinspectR")</span></span>
@@ -119,8 +119,9 @@ quicker.</p>
 </h3>
 <p>Let’s say I’m interested in exploring the relationship between body
 mass, bill length, and flipper length using the <code>penguins</code>
-dataset. One of the first things I likely want to know before I start
-trying to do any intensive analysis is “are these variables normally
+dataset.</p>
+<p>One of the first things I likely want to know before I start trying
+to do any intensive analysis is “are these variables normally
 distributed?” - the answer to this question will dictate both what types
 of analysis I can do and how I will approach my analysis.</p>
 <p>I can fumble around with <code>dplyr</code>, <code>tidyr</code>, and
@@ -128,34 +129,30 @@ of analysis I can do and how I will approach my analysis.</p>
 the ground-up, or I can <code>inspect_normality</code> and get to the
 fun stuff sooner.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/inspect_normality.html">inspect_normality</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 8 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_bin()`).</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/inspect_normality.html">inspect_normality</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
 <p><img src="using-quickinspectR_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>In a single line of code, I have a pretty good sense of how these
 variables are distributed. If I want to get rid of some of the clutter
 in that plot, I can tell <code>inspect_normality</code> which variables
-I’m interested in using the <code>vars</code> argument.</p>
+I’m interested in via the <code>vars</code> argument.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/inspect_normality.html">inspect_normality</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>,</span>
-<span>                  vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bill_length_mm"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 6 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_bin()`).</span></span></code></pre></div>
+<span>                  vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bill_length_mm"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="using-quickinspectR_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Using the <code>vars</code> argument, I can focus on the variables
-were most interested in and leave the variables I’m not interested in
-out of the plot.</p>
+I’m most interested in and leave the variables I’m not interested in out
+of the plot.</p>
 </div>
 <div class="section level3">
 <h3 id="using-inspect_balance-to-inspect-class-imbalance">Using <code>inspect_balance</code> to inspect class imbalance<a class="anchor" aria-label="anchor" href="#using-inspect_balance-to-inspect-class-imbalance"></a>
 </h3>
 <p>Now that I’ve inspected some numeric variables, I’m thinking that
 there might be some connection between the <code>species</code> of a
-penguin, its <code>sex</code>, and its physical attributes. There are a
-few important details I want to know right away. How many different
-species am I dealing with in this dataset? Are there enough observations
-corresponding to each classification of species/sex for me to use them
-meaningfully in my analysis?</p>
+penguin, its <code>sex</code>, and its physical attributes.</p>
+<p>There are a few important details I want to know right away. How many
+different species am I dealing with in this dataset? Are there enough
+observations corresponding to each classification of species/sex for me
+to use them meaningfully in my analysis?</p>
 <p>Before undertaking any formal analysis, I want to make sure I’m
 well-informed about this. I can <code>inspect_balance</code> to figure
 this out quickly.</p>
@@ -172,17 +169,17 @@ I start trying to build any models.</p>
 </h3>
 <p>You may have noticed that an <code>NA</code> found its way into the
 above plot. This is a good reminder that I should take a look to see if
-there’s any missing data in the <code>penguins</code> dataset. If data
-is missing in a patterned way, it could introduce bias into my analysis.
-I can <code>inspect_missing</code> to figure this out.</p>
+there’s any missing data in the <code>penguins</code> dataset.</p>
+<p>If data is missing in a patterned way, it could introduce bias into
+my analysis. I can <code>inspect_missing</code> to figure this out.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/inspect_missing.html">inspect_missing</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
 <p><img src="using-quickinspectR_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<p>Most of the missing data does seem to be in the <code>sex</code>
+<p>Most of the missing data seems to be in the <code>sex</code>
 variable. I think it’ll be okay, but I’ll keep this in mind if I start
 seeing some unexpected results later on. And just like we did before, I
-can use <code>vars</code> to select only those variables I’m most
-interested in inspecting.</p>
+can use the <code>vars</code> argument to select only those variables
+I’m most interested in.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/inspect_missing.html">inspect_missing</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>,</span>
 <span>                vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bill_length_mm"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span>, <span class="st">"species"</span>, <span class="st">"sex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -209,28 +206,29 @@ programmer who’s in a rush).</p>
 <ul>
 <li>
 <code>vars</code> (as seen above) allows you to easily select the
-variables you want to visualize.</li>
+variables you want to visualize and expects a character vector of
+variable names as input.</li>
 <li>
-<code>fill_colour</code> lets you pick your colour of choice.</li>
+<code>fill_colour</code> lets you pick your colour of choice and
+expects an R-supported colour or hex value as input.</li>
 <li>
-<code>title</code> lets you add a descriptive title to your
-plot.</li>
+<code>title</code> lets you add a descriptive title to your plot. It
+expects a non-empty string as input.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/inspect_normality.html">inspect_normality</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">penguins</span>,</span>
 <span>                  vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bill_length_mm"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span><span class="op">)</span>,</span>
 <span>                  fill_colour <span class="op">=</span> <span class="st">"blue"</span>,</span>
-<span>                  title <span class="op">=</span> <span class="st">"Penguin Attributes"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 6 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_bin()`).</span></span></code></pre></div>
+<span>                  title <span class="op">=</span> <span class="st">"Penguin Attributes"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="using-quickinspectR_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <p>Now you can inspect your data <em>in style</em>! While some
 <code>inspect</code> functions contain additional arguments, all share
-these same basic customization options. To see what additional arguments
-a particular <code>inspect</code> function has, you can check the
-documentation by running <code>?inspect_...</code> in the console,
-replacing <code>...</code> with your function of choice. For example,
-running <code><a href="../reference/inspect_normality.html">?inspect_normality</a></code> will reveal an additional
+these same basic customization options.</p>
+<p>To see what additional arguments a particular <code>inspect</code>
+function has, you can check the documentation by running
+<code>?inspect_...</code> in the console, replacing <code>...</code>
+with your function of choice. For example, running
+<code><a href="../reference/inspect_normality.html">?inspect_normality</a></code> will reveal an additional
 <code>bins</code> argument that lets you specify the number of bins to
 use in each histogram visualization.</p>
 </div>
@@ -246,12 +244,12 @@ to.</p>
 <div class="section level3">
 <h3 id="using-----to-extend-inspect-functions">Using <code>...</code> to extend <code>inspect</code> functions<a class="anchor" aria-label="anchor" href="#using-----to-extend-inspect-functions"></a>
 </h3>
-<p>Under the hood, <strong>quickinspectR</strong> is generating
-<strong>ggplot2</strong> objects. Using the <code>...</code> argument,
-you can pass any supported ggplot2 argument directly into the plot’s
-“main” <code>geom_</code> layer. When using
-<code>inspect_normality</code>, your arguments will be passed right into
-the <code>geom_histogram</code> layer. When using
+<p>Under the hood, <strong>quickinspectR</strong> is generating ggplot2
+objects. Using the <code>...</code> argument, you can pass any supported
+ggplot2 argument directly into the plot’s “main” <code>geom</code>
+layer.</p>
+<p>When using <code>inspect_normality</code>, your arguments will be
+passed right into the <code>geom_histogram</code> layer. When using
 <code>inspect_balance</code> and <code>inspect_missing</code>, your
 arguments will land in the <code>geom_bar</code> layer.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -260,13 +258,10 @@ arguments will land in the <code>geom_bar</code> layer.</p>
 <span>                  fill_colour <span class="op">=</span> <span class="st">"navyblue"</span>,</span>
 <span>                  title <span class="op">=</span> <span class="st">"Penguin Attributes"</span>,</span>
 <span>                  colour <span class="op">=</span> <span class="st">"lightblue"</span>, <span class="co"># Specifies the bar outline colour</span></span>
-<span>                  alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="co"># Reduces the opacity</span></span>
-<span><span class="co">#&gt; Warning: Removed 6 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_bin()`).</span></span></code></pre></div>
+<span>                  alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="co"># Reduces the opacity</span></span></code></pre></div>
 <p><img src="using-quickinspectR_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>Using <code>colour</code> and <code>alpha</code>, we were able to add
-additional customizations to our plot (beyond those explicitly supported
-by <code>inspect_normality</code>).</p>
+additional customization to our plot.</p>
 </div>
 <div class="section level3">
 <h3 id="adding-additional-ggplot2-layers">Adding additional ggplot2 layers<a class="anchor" aria-label="anchor" href="#adding-additional-ggplot2-layers"></a>
@@ -285,9 +280,7 @@ syntax. Let’s add a dark theme to the plot.</p>
 <span>                  title <span class="op">=</span> <span class="st">"Penguin Attributes"</span>,</span>
 <span>                  colour <span class="op">=</span> <span class="st">"lightblue"</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_dark</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Adds dark theme</span></span>
-<span><span class="co">#&gt; Warning: Removed 6 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_bin()`).</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_dark</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Adds dark theme</span></span></code></pre></div>
 <p><img src="using-quickinspectR_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>Another situation where this comes in handy is when you want to use
 an <code>inspect</code> function to get your plot <em>most</em> of the
@@ -303,9 +296,7 @@ and a <code>geom_rug</code> layer.</p>
 <span>                  alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_dark</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Physical attributes"</span>, y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Axis labels</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_rug.html" class="external-link">geom_rug</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">value</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="co"># Geom layer</span></span>
-<span><span class="co">#&gt; Warning: Removed 6 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_bin()`).</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_rug.html" class="external-link">geom_rug</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">value</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="co"># Geom layer</span></span></code></pre></div>
 <p><img src="using-quickinspectR_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
 </div>
