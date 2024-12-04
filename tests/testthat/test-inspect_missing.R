@@ -30,7 +30,7 @@ test_that("inspect_missing handles inputs as intended", {
   )
   expect_error(
     inspect_missing(iris, title = c("Title1", "Title2")),
-    "Invalid title: Title1Title2\\. Please provide a non-empty character string\\."
+    "Invalid title: Title1\\. Please provide a non-empty character string\\."
   )
 })
 

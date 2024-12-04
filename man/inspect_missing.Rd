@@ -2,7 +2,7 @@
 % Please edit documentation in R/inspect_missing.R
 \name{inspect_missing}
 \alias{inspect_missing}
-\title{Inspect missingness}
+\title{Inspect missing values}
 \usage{
 inspect_missing(
   data,
@@ -14,35 +14,34 @@ inspect_missing(
 )
 }
 \arguments{
-\item{data}{A non-empty date frame or tibble.}
+\item{data}{A non-empty data frame or tibble.}
 
-\item{vars}{A vector of variables contained in data. Default value \code{NULL} will produce plots for every variable in the data}
+\item{vars}{A character vector of column names to inspect. Default value \code{NULL} will produce plots for every variable in the data.}
 
 \item{na_colour}{An R-supported colour or hex value to indicate missing values. Default value is "red".}
 
 \item{fill_colour}{An R-supported colour or hex value to indicate non-missing values. Default value is "grey30".}
 
-\item{title}{A string. Default value \code{NULL} is no title.}
+\item{title}{A non-empty string for the plot title. Default value \code{NULL} results in no title being displayed.}
 
-\item{...}{Additional ggplot2 parameters to modify plot outputs.}
+\item{...}{Additional \code{ggplot2} parameters to modify plot outputs (e.g., \code{alpha}, \code{colour}).}
 }
 \value{
-A ggplot2 object.
+A ggplot2 object (a bar plot) showing the proportion of missingness for the specified variables.
 }
 \description{
-Quickly inspect the missingness in a dataset.
+Quickly inspect the missing values in a dataset by producing a bar plot.
 }
 \details{
-\code{inspect_missing} uses ggplot2 to produce a bar plot. Any valid arguments that may be passed to a \code{geom_bar} layer may also be passed to \code{inspect_missing} via \code{...} to modify plot outputs.
+\code{inspect_missing} uses \code{ggplot2} to produce a bar plot representing the proportion of missing and non-missing values for each column in the dataset. Any valid arguments that may be passed to a \code{geom_bar} layer in \code{ggplot2} may also be passed to \code{inspect_missing} via \code{...} to customize the plot appearance.
 }
 \examples{
 # Basic usage
-inspect_missing(iris)
+inspect_missing(airquality)
 
-# Advanced usage
-# Manually specifies the variables to inspect and modifies plot output.
-inspect_missing(data = iris,
-                vars = c("Sepal.Width", "Sepal.Length"),
+# Advanced usage: Manually specify variables and modify plot output
+inspect_missing(data = airquality,
+                vars = c("Ozone", "Solar.R"),
                 na_colour = "green",
                 fill_colour = "blue",
                 alpha = 0.5)
