@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">quickinspectR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,32 +50,32 @@
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>A date frame or tibble with at least one categorical variable.</p></dd>
+<dd><p>A non-empty data frame or tibble containing at least one categorical variable.</p></dd>
 
 
 <dt id="arg-vars">vars<a class="anchor" aria-label="anchor" href="#arg-vars"></a></dt>
-<dd><p>A vector of categorical variables contained in data. Default value <code>NULL</code> will produce plots for every categorical variable in the data.</p></dd>
+<dd><p>A character vector of categorical variable names contained in <code>data</code>. Default value <code>NULL</code> will produce plots for every categorical variable in the dataset.</p></dd>
 
 
 <dt id="arg-fill-colour">fill_colour<a class="anchor" aria-label="anchor" href="#arg-fill-colour"></a></dt>
-<dd><p>An R-supported colour or hex code to assign as the barplot colour. Default value is "grey30"</p></dd>
+<dd><p>An R-supported colour or hex value used to fill the bars of the bar plot. Default value is "grey30".</p></dd>
 
 
 <dt id="arg-title">title<a class="anchor" aria-label="anchor" href="#arg-title"></a></dt>
-<dd><p>A string. Default value <code>NULL</code> is no title.</p></dd>
+<dd><p>A non-empty string for the plot title. Default value <code>NULL</code> results in no title being displayed.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Additional ggplot2 parameters to modify plot outputs.</p></dd>
+<dd><p>Additional arguments passed to <code>geom_bar</code> and <code>ggplot2</code> layers for customizing the plot output.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A ggplot2 object with bar plots for each categorical variable.</p>
+    <p>A ggplot2 object with bar plot(s) for each specified categorical variable.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>inspect_balance</code> uses ggplot2 to produce bar plots. Any valid arguments that may be passed to a <code>geom_bar</code> layer may also be passed to <code>inspect_balance</code> to modify plot outputs.</p>
+    <p><code>inspect_balance</code> uses <code>ggplot2</code> to produce bar plots visualizing the distribution of categorical variables. Any valid arguments that can be passed to a <code>geom_bar</code> layer in ggplot2 may also be passed to <code>inspect_balance</code> to modify plot outputs.</p>
     </div>
 
     <div class="section level2">
@@ -85,9 +85,9 @@
 <span class="r-plt img"><img src="inspect_balance-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Advanced usage</span></span></span>
-<span class="r-in"><span><span class="co"># Manually specifies the variable to inspect and modifies plot output</span></span></span>
+<span class="r-in"><span><span class="co"># Specify the variable to inspect and modify the plot appearance</span></span></span>
 <span class="r-in"><span><span class="fu">inspect_balance</span><span class="op">(</span>data <span class="op">=</span> <span class="va">iris</span>,</span></span>
-<span class="r-in"><span>                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                fill_colour <span class="op">=</span> <span class="st">"blue"</span>,</span></span>
 <span class="r-in"><span>                title <span class="op">=</span> <span class="st">"Class balance of Species"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="inspect_balance-2.png" alt="" width="700" height="433"></span>
