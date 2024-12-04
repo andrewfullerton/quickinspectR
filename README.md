@@ -96,6 +96,8 @@ inspect_missing(data = palmerpenguins::penguins,
 And while advanced plot customization is not the goal of
 **quickinspectR**, all its functions are built on top of **ggplot2** and
 support more advanced customization via additional arguments. To learn
-more about this, you can read this vignette.
+more about this, you can read more in the “Advanced usage” section of
+[this
+vignette](https://andrewfullerton.github.io/quickinspectR/articles/using-quickinspectR.html).
 
 ## Thanks for checking out quickinspectR!

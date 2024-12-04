@@ -13,7 +13,7 @@
 #' @details
 #' `inspect_normality` uses `ggplot2` to produce histograms of numeric variables to visualize their distributions. Any valid arguments that can be passed to a `geom_histogram` layer in ggplot2 may also be passed to `inspect_normality` to modify the plot outputs.
 #'
-#' @import dplyr tidyr ggplot2 stringr rlang
+#' @import dplyr tidyr ggplot2 stringr rlang glue
 #' @export
 #'
 #' @examples
