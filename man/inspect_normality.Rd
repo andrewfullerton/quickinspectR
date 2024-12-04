@@ -14,33 +14,33 @@ inspect_normality(
 )
 }
 \arguments{
-\item{data}{A date frame or tibble with at least one numeric variable.}
+\item{data}{A non-empty data frame or tibble containing at least one numeric variable.}
 
-\item{vars}{A vector of numeric variables contained in data. Default value \code{NULL} will produce plots for every numeric variable in the data.}
+\item{vars}{A character vector of numeric variable names contained in \code{data}. Default value \code{NULL} will produce plots for every numeric variable in the dataset.}
 
-\item{fill_colour}{An R-supported colour or hex code to assign as the histogram colour. Default value is "grey30"}
+\item{fill_colour}{An R-supported colour name or hex value used to fill the bars of the histogram. Default value is "grey30".}
 
-\item{title}{A string. Default value \code{NULL} is no title.}
+\item{title}{A non-empty string for the title of the plot. Default value \code{NULL} results in no title being displayed.}
 
-\item{bins}{A number specifying the number of bins to be used in the histogram. Default value is \code{15}.}
+\item{bins}{A positive integer specifying the number of bins in the histogram. Default value is \code{15}.}
 
-\item{...}{Additional ggplot2 parameters to modify plot outputs.}
+\item{...}{Additional arguments passed to \code{geom_histogram} and \code{ggplot2} layers for customizing the plot output.}
 }
 \value{
-A faceted ggplot2 object with histograms for each numeric variable.
+A ggplot2 object containing histograms for each specified numeric variable.
 }
 \description{
-Quickly inspect the distribution of numeric variables.
+Quickly inspect the distribution of numeric variables using histograms.
 }
 \details{
-\code{inspect_normality} uses ggplot2 to produce histograms. Any valid arguments that may be passed to a \code{geom_histogram} layer may also be passed to \code{inspect_mortality} via \code{...} to modify plot outputs.
+\code{inspect_normality} uses \code{ggplot2} to produce histograms of numeric variables to visualize their distributions. Any valid arguments that can be passed to a \code{geom_histogram} layer in ggplot2 may also be passed to \code{inspect_normality} to modify the plot outputs.
 }
 \examples{
 # Basic usage
 inspect_normality(iris)
 
 # Advanced usage
-# Manually specifies the variables to inspect and modifies plot output
+# Specify the variables to inspect and modify the plot appearance
 inspect_normality(data = iris,
                   vars = c("Sepal.Length", "Sepal.Width"),
                   fill_colour = "blue",

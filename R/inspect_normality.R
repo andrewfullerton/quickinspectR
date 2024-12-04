@@ -1,20 +1,19 @@
 #' @title Inspect normality
 #' @description
-#' Quickly inspect the distribution of numeric variables.
+#' Quickly inspect the distribution of numeric variables using histograms.
 #'
+#' @param data A non-empty data frame or tibble containing at least one numeric variable.
+#' @param vars A character vector of numeric variable names contained in `data`. Default value `NULL` will produce plots for every numeric variable in the dataset.
+#' @param fill_colour An R-supported colour name or hex value used to fill the bars of the histogram. Default value is "grey30".
+#' @param title A non-empty string for the title of the plot. Default value `NULL` results in no title being displayed.
+#' @param bins A positive integer specifying the number of bins in the histogram. Default value is `15`.
+#' @param ... Additional arguments passed to `geom_histogram` and `ggplot2` layers for customizing the plot output.
 #'
-#' @param data A date frame or tibble with at least one numeric variable.
-#' @param vars A vector of numeric variables contained in data. Default value `NULL` will produce plots for every numeric variable in the data.
-#' @param fill_colour An R-supported colour or hex code to assign as the histogram colour. Default value is "grey30"
-#' @param title A string. Default value `NULL` is no title.
-#' @param bins A number specifying the number of bins to be used in the histogram. Default value is `15`.
-#' @param ... Additional ggplot2 parameters to modify plot outputs.
-#'
-#' @return A faceted ggplot2 object with histograms for each numeric variable.
+#' @return A ggplot2 object containing histograms for each specified numeric variable.
 #' @details
-#' `inspect_normality` uses ggplot2 to produce histograms. Any valid arguments that may be passed to a `geom_histogram` layer may also be passed to `inspect_mortality` via `...` to modify plot outputs.
+#' `inspect_normality` uses `ggplot2` to produce histograms of numeric variables to visualize their distributions. Any valid arguments that can be passed to a `geom_histogram` layer in ggplot2 may also be passed to `inspect_normality` to modify the plot outputs.
 #'
-#' @import dplyr tidyr ggplot2
+#' @import dplyr tidyr ggplot2 stringr rlang
 #' @export
 #'
 #' @examples
@@ -22,7 +21,7 @@
 #' inspect_normality(iris)
 #'
 #' # Advanced usage
-#' # Manually specifies the variables to inspect and modifies plot output
+#' # Specify the variables to inspect and modify the plot appearance
 #' inspect_normality(data = iris,
 #'                   vars = c("Sepal.Length", "Sepal.Width"),
 #'                   fill_colour = "blue",
@@ -60,30 +59,30 @@ inspect_normality <- function(data,
 
   # Check if the specified variables exist in the data
   if (!all(vars %in% names(data))) {
-    stop("Some of the specified variables do not exist in the dataset.")
+    rlang::abort("Some of the specified variables do not exist in the dataset.")
   }
 
   # Check if all specified variables are numeric
   non_numeric_vars <- vars[!vars %in% names(numeric_data)]
   if (length(non_numeric_vars) > 0) {
-    stop("The following variables are not numeric: ", paste(non_numeric_vars, collapse = ", "))
+    rlang::abort(glue::glue("The following variables are not numeric: {paste(non_numeric_vars, collapse = ', ')}"))
   }
 
   # Check if fill colour input is valid
-  valid_colors <- grDevices::colors()
-  is_hex_color <- grepl("^#(?:[0-9a-fA-F]{3}){1,2}$", fill_colour)
-  if (!(fill_colour %in% valid_colors || is_hex_color)) {
-    stop("Invalid color: ", fill_colour, ". Please provide a valid colour name or hex code.")
+  valid_colours <- grDevices::colors()
+  is_hex_colour <- stringr::str_detect("^#(?:[0-9a-fA-F]{3}){1,2}$", fill_colour)
+  if (!(fill_colour %in% valid_colours || is_hex_colour)) {
+    rlang::abort(glue::glue("Invalid colour: {fill_colour}. Please provide a valid colour name or hex code."))
   }
 
   # Check if title provided is valid
   if (!is.null(title) && (!is.character(title) || length(title) != 1 || title == "")) {
-    stop("Invalid title: ", title, ". Please provide a non-empty character string.")
+    rlang::abort(glue::glue("Invalid title: {title}. Please provide a non-empty character string."))
   }
 
   # Issue warning if selected variables exceed 20
   if (length(vars) > 20) {
-    warning("The dataset has more than 20 selected variables. The plot might be crowded.")
+    rlang::warn("The dataset has more than 20 selected variables. The plot might be crowded.")
   }
 
   # Plot histograms for each specified numeric variable
