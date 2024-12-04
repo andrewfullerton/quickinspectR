@@ -1,6 +1,3 @@
-library(testthat)
-library(dplyr)
-
 # TEST INPUT ERROR AND WARNING HANDLING
 test_that("inspect_normality issues errors and warnings as intended", {
   # Generate data for use in testing
