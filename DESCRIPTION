@@ -12,7 +12,7 @@ Imports:
     dplyr,
     tidyr,
     ggplot2
-URL: https://github.com/andrewfullerton/quickinspectR
+URL: https://github.com/andrewfullerton/quickinspectR, https://andrewfullerton.github.io/quickinspectR/
 BugReports: https://github.com/andrewfullerton/quickinspectR/issues
 Suggests: 
     knitr,
