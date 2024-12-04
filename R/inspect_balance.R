@@ -6,7 +6,7 @@
 #' @param vars A character vector of categorical variable names contained in `data`. Default value `NULL` will produce plots for every categorical variable in the dataset.
 #' @param fill_colour An R-supported colour or hex value used to fill the bars of the bar plot. Default value is "grey30".
 #' @param title A non-empty string for the plot title. Default value `NULL` results in no title being displayed.
-#' @param ... Additional arguments passed to `geom_bar` and `ggplot2` layers for customizing the plot output.
+#' @param ... Additional `ggplot2` arguments passed to `geom_bar` layer for customizing the plot output.
 #'
 #' @return A ggplot2 object with bar plot(s) for each specified categorical variable.
 #' @details

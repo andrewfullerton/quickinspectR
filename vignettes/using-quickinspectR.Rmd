@@ -14,11 +14,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-**quickinspectR** is a package designed for beginner R programmers that makes graphically inspecting your data faster and easier. In this article, we'll go through basic usage, intermediate usage, and advance usage of **quickinspectR** using a tried-and-true dataset among R programmers: `palmerpenguins::penguins`. 
+**quickinspectR** is a package designed for beginner R programmers that makes graphically inspecting your data faster and easier. In this article, we'll go through basic usage, intermediate usage, and advanced usage of **quickinspectR** using a tried-and-true dataset among R programmers: `penguins` from the `palmerpenguins` package. 
 
 # Getting started
 
-To get started, we first need load the **quicksinspectR** package into our session. If you don't already have it installed, you can use the commented out code below to install the `devtools` package - this lets us install the development version of **quickinspectR** straight from GitHub. 
+To get started, we first need to load the **quicksinspectR** package into our session. 
+
+If you don't already have it installed, you can use the commented out code below to install the `devtools` package - this lets us install the development version of **quickinspectR** straight from GitHub. 
 
 ```{r setup}
 # install.packages("devtools")
@@ -49,30 +51,34 @@ Each of these functions can be used to help you familiarize yourself with your d
 
 ## Using `inspect_normality` to inspect distribution
 
-Let's say I'm interested in exploring the relationship between body mass, bill length, and flipper length using the `penguins` dataset. One of the first things I likely want to know before I start trying to do any intensive analysis is "are these variables normally distributed?" - the answer to this question will dictate both what types of analysis I can do and how I will approach my analysis.
+Let's say I'm interested in exploring the relationship between body mass, bill length, and flipper length using the `penguins` dataset. 
+
+One of the first things I likely want to know before I start trying to do any intensive analysis is "are these variables normally distributed?" - the answer to this question will dictate both what types of analysis I can do and how I will approach my analysis.
 
 I can fumble around with `dplyr`, `tidyr`, and `ggplot2` for an hour trying to build the plot I need from the ground-up, or I can `inspect_normality` and get to the fun stuff sooner.
 
-```{r}
+```{r, warning=FALSE}
 inspect_normality(penguins)
 ```
 
-In a single line of code, I have a pretty good sense of how these variables are distributed. If I want to get rid of some of the clutter in that plot, I can tell `inspect_normality` which variables I'm interested in using the `vars` argument.
+In a single line of code, I have a pretty good sense of how these variables are distributed. If I want to get rid of some of the clutter in that plot, I can tell `inspect_normality` which variables I'm interested in via the `vars` argument.
 
-```{r}
+```{r, warning=FALSE}
 inspect_normality(data = penguins,
                   vars = c("bill_length_mm", "flipper_length_mm", "body_mass_g"))
 ```
 
-Using the `vars` argument, I can focus on the variables were most interested in and leave the variables I'm not interested in out of the plot. 
+Using the `vars` argument, I can focus on the variables I'm most interested in and leave the variables I'm not interested in out of the plot. 
 
 ## Using `inspect_balance` to inspect class imbalance
 
-Now that I've inspected some numeric variables, I'm thinking that there might be some connection between the `species` of a penguin, its `sex`, and its physical attributes. There are a few important details I want to know right away. How many different species am I dealing with in this dataset? Are there enough observations corresponding to each classification of species/sex for me to use them meaningfully in my analysis?
+Now that I've inspected some numeric variables, I'm thinking that there might be some connection between the `species` of a penguin, its `sex`, and its physical attributes. 
+
+There are a few important details I want to know right away. How many different species am I dealing with in this dataset? Are there enough observations corresponding to each classification of species/sex for me to use them meaningfully in my analysis?
 
 Before undertaking any formal analysis, I want to make sure I'm well-informed about this. I can `inspect_balance` to figure this out quickly.
 
-```{r}
+```{r, warning=FALSE}
 inspect_balance(penguins)
 ```
 
@@ -80,15 +86,17 @@ With a single line of code, I can see that there's a pretty even split between m
 
 ## Using `inspect_missing` to identify missing values
 
-You may have noticed that an `NA` found its way into the above plot. This is a good reminder that I should take a look to see if there's any missing data in the `penguins` dataset. If data is missing in a patterned way, it could introduce bias into my analysis. I can `inspect_missing` to figure this out.
+You may have noticed that an `NA` found its way into the above plot. This is a good reminder that I should take a look to see if there's any missing data in the `penguins` dataset. 
 
-```{r}
+If data is missing in a patterned way, it could introduce bias into my analysis. I can `inspect_missing` to figure this out.
+
+```{r, warning=FALSE}
 inspect_missing(penguins)
 ```
 
-Most of the missing data does seem to be in the `sex` variable. I think it'll be okay, but I'll keep this in mind if I start seeing some unexpected results later on. And just like we did before, I can use `vars` to select only those variables I'm most interested in inspecting. 
+Most of the missing data seems to be in the `sex` variable. I think it'll be okay, but I'll keep this in mind if I start seeing some unexpected results later on. And just like we did before, I can use the `vars` argument to select only those variables I'm most interested in. 
 
-```{r}
+```{r, warning=FALSE}
 inspect_missing(data = penguins,
                 vars = c("bill_length_mm", "flipper_length_mm", "body_mass_g", "species", "sex"))
 ```
@@ -103,18 +111,20 @@ If you wanted to, you could stop reading right now and go use **quickinspectR** 
 
 All `inspect` functions in **quickinspectR** contain several additional (but optional) arguments to make plot customization more accessible for the beginner (or the experienced programmer who's in a rush).
 
--   `vars` (as seen above) allows you to easily select the variables you want to visualize.
--   `fill_colour` lets you pick your colour of choice.
--   `title` lets you add a descriptive title to your plot.
+-   `vars` (as seen above) allows you to easily select the variables you want to visualize and expects a character vector of variable names as input.
+-   `fill_colour` lets you pick your colour of choice and expects an R-supported colour or hex value as input.
+-   `title` lets you add a descriptive title to your plot. It expects a non-empty string as input.
 
-```{r}
+```{r, warning=FALSE}
 inspect_normality(data = penguins,
                   vars = c("bill_length_mm", "flipper_length_mm", "body_mass_g"),
                   fill_colour = "blue",
                   title = "Penguin Attributes")
 ```
 
-Now you can inspect your data *in style*! While some `inspect` functions contain additional arguments, all share these same basic customization options. To see what additional arguments a particular `inspect` function has, you can check the documentation by running `?inspect_...` in the console, replacing `...` with your function of choice. For example, running `?inspect_normality` will reveal an additional `bins` argument that lets you specify the number of bins to use in each histogram visualization.
+Now you can inspect your data *in style*! While some `inspect` functions contain additional arguments, all share these same basic customization options. 
+
+To see what additional arguments a particular `inspect` function has, you can check the documentation by running `?inspect_...` in the console, replacing `...` with your function of choice. For example, running `?inspect_normality` will reveal an additional `bins` argument that lets you specify the number of bins to use in each histogram visualization.
 
 # Advanced usage
 
@@ -122,9 +132,11 @@ While **quickinspectR** is intended as a package to help novice R programmers ge
 
 ## Using `...` to extend `inspect` functions
 
-Under the hood, **quickinspectR** is generating **ggplot2** objects. Using the `...` argument, you can pass any supported ggplot2 argument directly into the plot's "main" `geom_` layer. When using `inspect_normality`, your arguments will be passed right into the `geom_histogram` layer. When using `inspect_balance` and `inspect_missing`, your arguments will land in the `geom_bar` layer.
+Under the hood, **quickinspectR** is generating ggplot2 objects. Using the `...` argument, you can pass any supported ggplot2 argument directly into the plot's "main" `geom` layer. 
 
-```{r}
+When using `inspect_normality`, your arguments will be passed right into the `geom_histogram` layer. When using `inspect_balance` and `inspect_missing`, your arguments will land in the `geom_bar` layer.
+
+```{r, warning=FALSE}
 inspect_normality(data = penguins,
                   vars = c("bill_length_mm", "flipper_length_mm", "body_mass_g"),
                   fill_colour = "navyblue",
@@ -133,13 +145,13 @@ inspect_normality(data = penguins,
                   alpha = 0.7) # Reduces the opacity
 ```
 
-Using `colour` and `alpha`, we were able to add additional customizations to our plot (beyond those explicitly supported by `inspect_normality`).
+Using `colour` and `alpha`, we were able to add additional customization to our plot.
 
 ## Adding additional ggplot2 layers
 
 While passing additional arguments into a pre-specified `geom` layer is great, it's not without limitations. Since `inspect` functions return a standard ggplot2 object, you can easily add themes, layers, and more using standard `ggplot2` syntax. Let's add a dark theme to the plot.
 
-```{r}
+```{r, warning=FALSE}
 library(ggplot2) # Load ggplot2
 
 inspect_normality(data = penguins,
@@ -153,7 +165,7 @@ inspect_normality(data = penguins,
 
 Another situation where this comes in handy is when you want to use an `inspect` function to get your plot *most* of the way there, but add some additional modifications and `geom` layers based on a specific use case. Let's add some custom axis labels and a `geom_rug` layer.
 
-```{r}
+```{r, warning=FALSE}
 inspect_normality(data = penguins,
                   vars = c("bill_length_mm", "flipper_length_mm", "body_mass_g"),
                   fill_colour = "navyblue",

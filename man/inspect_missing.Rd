@@ -24,7 +24,7 @@ inspect_missing(
 
 \item{title}{A non-empty string for the plot title. Default value \code{NULL} results in no title being displayed.}
 
-\item{...}{Additional \code{ggplot2} parameters to modify plot outputs (e.g., \code{alpha}, \code{colour}).}
+\item{...}{Additional \code{ggplot2} arguments passed to \code{geom_bar} layer to modify plot outputs.}
 }
 \value{
 A ggplot2 object (a bar plot) showing the proportion of missingness for the specified variables.

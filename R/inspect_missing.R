@@ -7,7 +7,7 @@
 #' @param na_colour An R-supported colour or hex value to indicate missing values. Default value is "red".
 #' @param fill_colour An R-supported colour or hex value to indicate non-missing values. Default value is "grey30".
 #' @param title A non-empty string for the plot title. Default value `NULL` results in no title being displayed.
-#' @param ... Additional `ggplot2` parameters to modify plot outputs (e.g., `alpha`, `colour`).
+#' @param ... Additional `ggplot2` arguments passed to `geom_bar` layer to modify plot outputs.
 #'
 #' @return A ggplot2 object (a bar plot) showing the proportion of missingness for the specified variables.
 #' @details

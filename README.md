@@ -100,4 +100,8 @@ more about this, you can read more in the “Advanced usage” section of
 [this
 vignette](https://andrewfullerton.github.io/quickinspectR/articles/using-quickinspectR.html).
 
+*Statement of data usage: This package and its documentation make use of
+the `iris` and `airquality` datasets from the `datasets` package as well
+as the `penguins` dataset from the `palmerpenguins` package*
+
 ## Thanks for checking out quickinspectR!

@@ -15,7 +15,7 @@ inspect_balance(data, vars = NULL, fill_colour = "grey30", title = NULL, ...)
 
 \item{title}{A non-empty string for the plot title. Default value \code{NULL} results in no title being displayed.}
 
-\item{...}{Additional arguments passed to \code{geom_bar} and \code{ggplot2} layers for customizing the plot output.}
+\item{...}{Additional \code{ggplot2} arguments passed to \code{geom_bar} layer for customizing the plot output.}
 }
 \value{
 A ggplot2 object with bar plot(s) for each specified categorical variable.

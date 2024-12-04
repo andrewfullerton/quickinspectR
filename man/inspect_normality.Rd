@@ -24,7 +24,7 @@ inspect_normality(
 
 \item{bins}{A positive integer specifying the number of bins in the histogram. Default value is \code{15}.}
 
-\item{...}{Additional arguments passed to \code{geom_histogram} and \code{ggplot2} layers for customizing the plot output.}
+\item{...}{Additional \code{ggplot2} arguments passed to \code{geom_histogram} layer for customizing the plot output.}
 }
 \value{
 A ggplot2 object containing histograms for each specified numeric variable.

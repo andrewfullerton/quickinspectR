@@ -7,7 +7,7 @@
 #' @param fill_colour An R-supported colour name or hex value used to fill the bars of the histogram. Default value is "grey30".
 #' @param title A non-empty string for the title of the plot. Default value `NULL` results in no title being displayed.
 #' @param bins A positive integer specifying the number of bins in the histogram. Default value is `15`.
-#' @param ... Additional arguments passed to `geom_histogram` and `ggplot2` layers for customizing the plot output.
+#' @param ... Additional `ggplot2` arguments passed to `geom_histogram` layer for customizing the plot output.
 #'
 #' @return A ggplot2 object containing histograms for each specified numeric variable.
 #' @details
