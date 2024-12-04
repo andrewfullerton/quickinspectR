@@ -7,33 +7,33 @@
 inspect_balance(data, vars = NULL, fill_colour = "grey30", title = NULL, ...)
 }
 \arguments{
-\item{data}{A date frame or tibble with at least one categorical variable.}
+\item{data}{A non-empty data frame or tibble containing at least one categorical variable.}
 
-\item{vars}{A vector of categorical variables contained in data. Default value \code{NULL} will produce plots for every categorical variable in the data.}
+\item{vars}{A character vector of categorical variable names contained in \code{data}. Default value \code{NULL} will produce plots for every categorical variable in the dataset.}
 
-\item{fill_colour}{An R-supported colour or hex code to assign as the barplot colour. Default value is "grey30"}
+\item{fill_colour}{An R-supported colour or hex value used to fill the bars of the bar plot. Default value is "grey30".}
 
-\item{title}{A string. Default value \code{NULL} is no title.}
+\item{title}{A non-empty string for the plot title. Default value \code{NULL} results in no title being displayed.}
 
-\item{...}{Additional ggplot2 parameters to modify plot outputs.}
+\item{...}{Additional arguments passed to \code{geom_bar} and \code{ggplot2} layers for customizing the plot output.}
 }
 \value{
-A ggplot2 object with bar plots for each categorical variable.
+A ggplot2 object with bar plot(s) for each specified categorical variable.
 }
 \description{
 Quickly inspect the distribution of your categorical variables.
 }
 \details{
-\code{inspect_balance} uses ggplot2 to produce bar plots. Any valid arguments that may be passed to a \code{geom_bar} layer may also be passed to \code{inspect_balance} to modify plot outputs.
+\code{inspect_balance} uses \code{ggplot2} to produce bar plots visualizing the distribution of categorical variables. Any valid arguments that can be passed to a \code{geom_bar} layer in ggplot2 may also be passed to \code{inspect_balance} to modify plot outputs.
 }
 \examples{
 # Basic usage
 inspect_balance(iris)
 
 # Advanced usage
-# Manually specifies the variable to inspect and modifies plot output
+# Specify the variable to inspect and modify the plot appearance
 inspect_balance(data = iris,
-                c("Species"),
+                vars = c("Species"),
                 fill_colour = "blue",
                 title = "Class balance of Species")
 }
