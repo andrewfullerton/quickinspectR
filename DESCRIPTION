@@ -3,7 +3,7 @@ Title: Quickly Inspect Your Data
 Version: 0.3.6
 Authors@R: 
     person("Andrew", "Fullerton", , "afullert@student.ubc.ca", role = c("aut", "cre"))
-Description: Visually inspect your dataset for normality, class imbalance, or missingness with one swift line of code.
+Description: Graphically inspect your dataset for normality, class imbalance, or missingness with one swift line of code.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -15,5 +15,9 @@ Imports:
 URL: https://github.com/andrewfullerton/quickinspectR
 BugReports: https://github.com/andrewfullerton/quickinspectR/issues
 Suggests: 
-    testthat (>= 3.0.0)
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    palmerpenguins
 Config/testthat/edition: 3
+VignetteBuilder: knitr
